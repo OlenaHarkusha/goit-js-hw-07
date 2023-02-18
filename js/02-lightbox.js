@@ -1,4 +1,29 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
+const refs = {
+  gallery: document.querySelector(".gallery"),
+};
 
-console.log(galleryItems);
+const galleryMarkup = createGalleryMarkup(galleryItems);
+
+addGalleryMarkup(galleryMarkup);
+
+function createGalleryMarkup(items) {
+  return items
+    .map((item) => {
+      return `<a class="gallery__item" href="${item.original}">
+  <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
+</a>`;
+    })
+    .join("");
+}
+
+function addGalleryMarkup(markup) {
+  refs.gallery.innerHTML = markup;
+}
+
+const lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionType: "attr",
+  captionDelay: 250,
+});
